@@ -1,0 +1,10 @@
+{
+  "name": "Cadre familial interactif",
+  "short_name": "Cadre familial",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#09111f",
+  "theme_color": "#09111f",
+  "icons": []
+}

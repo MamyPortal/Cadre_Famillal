@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#09111f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Cadre familial interactif pour tablette" />
+  <title>Cadre familial</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero card">
+      <div>
+        <p id="subtitle" class="eyebrow">Cadre familial</p>
+        <h1 id="title">Bonjour</h1>
+        <p id="familyNotes" class="small muted">Chargement...</p>
+      </div>
+      <div class="clock-block">
+        <div id="dateLine" class="date-line">--</div>
+        <div id="timeLine" class="time-line">--:--</div>
+        <div id="onlineLine" class="online-line">En ligne</div>
+      </div>
+    </header>
+
+    <section class="cards">
+      <article class="card panel weather-card">
+        <div class="panel-title">Météo</div>
+        <div id="weatherMain" class="weather-main">--</div>
+        <div id="weatherDetails" class="muted">Chargement...</div>
+      </article>
+
+      <article class="card panel message-card">
+        <div class="panel-title">Message de la famille</div>
+        <div id="messageBox" class="message-box">--</div>
+      </article>
+    </section>
+
+    <section class="card photo-card">
+      <div class="panel-title">Photos</div>
+      <div class="photo-stage">
+        <img id="photoImg" alt="Photos de la famille" />
+        <div id="photoLabel" class="photo-label">--</div>
+      </div>
+    </section>
+
+    <section class="actions">
+      <a id="whatsappLink" class="cta" href="#" rel="noopener noreferrer">Appeler WhatsApp</a>
+      <button id="refreshBtn" class="secondary" type="button">Rafraîchir</button>
+      <a id="photoLink" class="secondary" href="#" rel="noopener noreferrer">Ouvrir les photos</a>
+    </section>
+
+    <section class="card footer-card">
+      <div class="panel-title">Raccourcis de la famille</div>
+      <div id="linkList" class="link-list"></div>
+    </section>
+
+    <footer class="footer">Plein écran conseillé. Garder la tablette branchée.</footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

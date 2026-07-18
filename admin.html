@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#09111f" />
+  <title>Administration cadre familial</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin-body">
+  <main class="admin-shell">
+    <header class="card hero admin-hero">
+      <div>
+        <p class="eyebrow">Administration</p>
+        <h1>Préparer la configuration</h1>
+        <p class="small muted">Cette page permet d'éditer <code>config.json</code>, puis de le télécharger pour remplacer le fichier dans GitHub.</p>
+      </div>
+      <div class="admin-actions-row">
+        <button id="loadBtn" class="secondary" type="button">Charger config.json</button>
+        <button id="sampleBtn" class="secondary" type="button">Remettre l'exemple</button>
+        <button id="downloadBtn" class="cta" type="button">Télécharger config.json</button>
+      </div>
+    </header>
+
+    <section class="card admin-grid">
+      <label>Titre
+        <input id="title" placeholder="Bonjour Mamie" />
+      </label>
+      <label>Sous-titre
+        <input id="subtitle" placeholder="Cadre familial simple" />
+      </label>
+      <label>Ville météo
+        <input id="city" placeholder="Paris" />
+      </label>
+      <label>Numéro WhatsApp
+        <input id="whatsappPhone" placeholder="33600000000" />
+      </label>
+      <label>Texte du bouton WhatsApp
+        <input id="whatsappLabel" placeholder="Appeler WhatsApp" />
+      </label>
+      <label>Message de la famille
+        <textarea id="message" rows="6"></textarea>
+      </label>
+      <label>Éphéméride / rappel
+        <textarea id="ephemeride" rows="6"></textarea>
+      </label>
+      <label>Photos (une URL par ligne)
+        <textarea id="photoUrls" rows="8"></textarea>
+      </label>
+      <label>Liens rapides (format: label | url, une ligne par lien)
+        <textarea id="links" rows="8"></textarea>
+      </label>
+      <label>Intervalle photos en millisecondes
+        <input id="photoIntervalMs" type="number" min="4000" step="1000" />
+      </label>
+      <label>Accent couleur
+        <input id="accent" placeholder="#4f8cff" />
+      </label>
+      <label>Notes de la famille (une ligne par note)
+        <textarea id="familyNotes" rows="6"></textarea>
+      </label>
+    </section>
+
+    <section class="card admin-footer">
+      <button id="copyBtn" class="secondary" type="button">Copier le JSON</button>
+      <a href="index.html" class="cta">Retour à l'accueil</a>
+      <p class="small muted">Astuce: colle les photos en URL directe ou remplace les images locales du dossier <code>photos/</code>.</p>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>
