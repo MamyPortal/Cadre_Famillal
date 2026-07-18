@@ -13,7 +13,7 @@ const DEFAULT_CONFIG = {
   theme: { accent: '#4f8cff' },
   familyNotes: [
     'Garder la tablette branchée.',
-    "Le bouton WhatsApp ouvre l\'application.",
+    "Le bouton WhatsApp ouvre l'application.",
     'Les proches modifient config.json à distance.'
   ]
 };
@@ -66,14 +66,17 @@ function renderHeader() {
   setText('subtitle', config.subtitle);
   setText('messageBox', config.message);
   setText('familyNotes', (config.familyNotes || []).join(' • '));
+
   const phone = sanitizePhone(config.whatsappPhone);
   const whatsapp = $('whatsappLink');
   whatsapp.href = phone ? `https://wa.me/${phone}` : '#';
   whatsapp.textContent = config.whatsappLabel || 'Appeler WhatsApp';
+
   const photoLink = $('photoLink');
   const firstPhoto = (config.photoUrls || [])[0] || '#';
   photoLink.href = firstPhoto;
   photoLink.textContent = 'Ouvrir les photos';
+
   const linkList = $('linkList');
   linkList.innerHTML = '';
   (config.links || []).forEach(link => {
@@ -109,13 +112,19 @@ async function loadWeather() {
     const city = config.city || 'Paris';
     const place = await geocodeCity(city);
     if (!place) throw new Error('City not found');
-    const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,weather_code&timezone=auto`;
+    const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=auto`;
     const response = await fetch(forecastUrl);
     if (!response.ok) throw new Error('Forecast failed');
     const data = await response.json();
     const current = data.current;
+    const min = data.daily?.temperature_2m_min?.[0];
+    const max = data.daily?.temperature_2m_max?.[0];
     $('weatherMain').textContent = `${weatherEmoji(current.weather_code)} ${Math.round(current.temperature_2m)} °C`;
-    setText('weatherDetails', `${place.name}${place.admin1 ? ', ' + place.admin1 : ''}`);
+    const details = [
+      `${place.name}${place.admin1 ? ', ' + place.admin1 : ''}`,
+      Number.isFinite(min) && Number.isFinite(max) ? `Min ${Math.round(min)}° / Max ${Math.round(max)}°` : null
+    ].filter(Boolean).join(' • ');
+    setText('weatherDetails', details);
   } catch (error) {
     $('weatherMain').textContent = 'Météo';
     setText('weatherDetails', 'Vérifier la ville dans config.json');
@@ -174,17 +183,20 @@ async function init() {
   config = await loadConfig();
   applyTheme(config.theme);
   renderHeader();
+
   const clock = () => {
     const { date, time } = formatDateTime();
     setText('dateLine', date);
     setText('timeLine', time);
   };
+
   clock();
   setInterval(clock, 1000);
   await loadWeather();
   startSlideshow();
   await registerServiceWorker();
   await requestFullscreenHint();
+
   $('refreshBtn').addEventListener('click', async () => {
     config = await loadConfig();
     applyTheme(config.theme);
